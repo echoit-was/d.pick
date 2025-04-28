@@ -1,0 +1,30 @@
+{
+  "name": "monorepo-project",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "shared"
+  ],
+  "scripts": {
+    "dev:client": "npm run dev --workspace=packages/client",
+    "dev:server": "npm run dev --workspace=packages/server",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "build:client": "npm run build --workspace=packages/client",
+    "build:server": "npm run build --workspace=packages/server",
+    "build": "npm run build:client && npm run build:server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@types/recharts": "^1.8.29",
+    "recharts": "^2.15.2"
+  }
+}
