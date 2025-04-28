@@ -1,7 +1,1 @@
-{
-  "buildCommand": "cd packages/client && npm run build",
-  "outputDirectory": "packages/client/dist",
-  "devCommand": "cd packages/client && npm run dev",
-  "installCommand": "npm install",
-  "framework": "vite"
-} 
+{"buildCommand":"cd packages/client && npm install && npm run build","outputDirectory":"packages/client/dist","devCommand":"cd packages/client && npm run dev","installCommand":"npm install","framework":"vite"}
