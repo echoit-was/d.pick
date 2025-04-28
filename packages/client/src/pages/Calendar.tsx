@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import {
   Box,
   Typography,
@@ -16,7 +16,8 @@ import {
   Select,
   MenuItem,
   Chip,
-  LinearProgress
+  LinearProgress,
+  SelectChangeEvent
 } from '@mui/material';
 import {
   ArrowBack as ArrowBackIcon,
@@ -179,7 +180,7 @@ function Calendar() {
     });
   };
 
-  const handleSelectChange = (e: React.ChangeEvent<{ name?: string; value: unknown }>) => {
+  const handleSelectChange = (e: SelectChangeEvent<'project' | 'resource' | 'payment'>, child: ReactNode) => {
     setNewEvent({
       ...newEvent,
       type: e.target.value as 'project' | 'resource' | 'payment'
@@ -331,12 +332,12 @@ function Calendar() {
             {!selectedEvent && (
               <FormControl fullWidth margin="normal">
                 <InputLabel id="event-type-label">일정 타입</InputLabel>
-                <Select
+                <Select<'project' | 'resource' | 'payment'>
                   labelId="event-type-label"
                   name="type"
-                  value={newEvent.type}
+                  value={newEvent.type || 'project'}
                   label="일정 타입"
-                  onChange={handleSelectChange}
+                  onChange={(e) => handleSelectChange(e, null)}
                 >
                   <MenuItem value="project">프로젝트</MenuItem>
                   <MenuItem value="resource">인력 관리</MenuItem>

@@ -26,6 +26,7 @@ import {
   FormControl,
   InputLabel,
   Select,
+  SelectChangeEvent,
   LinearProgress
 } from '@mui/material';
 import {
@@ -41,9 +42,10 @@ import {
   People as PeopleIcon,
   Sort as SortIcon
 } from '@mui/icons-material';
+import { Task } from '../types';
 
 // 임시 데이터
-const mockTasks = [
+const mockTasks: Task[] = [
   {
     id: '1',
     title: '프론트엔드 개발자 3명 섭외',
@@ -93,14 +95,14 @@ const mockTasks = [
 
 function Tasks() {
   const navigate = useNavigate();
-  const [tasks, setTasks] = useState(mockTasks);
-  const [tabValue, setTabValue] = useState(0);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [filterAnchorEl, setFilterAnchorEl] = useState(null);
-  const [sortAnchorEl, setSortAnchorEl] = useState(null);
-  const [selectedStatus, setSelectedStatus] = useState('all');
-  const [selectedPriority, setSelectedPriority] = useState('all');
+  const [tasks, setTasks] = useState<Task[]>(mockTasks);
+  const [tabValue, setTabValue] = useState<number>(0);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [filterAnchorEl, setFilterAnchorEl] = useState<HTMLElement | null>(null);
+  const [sortAnchorEl, setSortAnchorEl] = useState<HTMLElement | null>(null);
+  const [selectedStatus, setSelectedStatus] = useState<string>('all');
+  const [selectedPriority, setSelectedPriority] = useState<string>('all');
 
   useEffect(() => {
     // API 호출 시뮬레이션
@@ -110,19 +112,19 @@ function Tasks() {
     }, 800);
   }, []);
 
-  const handleTabChange = (event, newValue) => {
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
 
-  const handleTaskClick = (taskId) => {
+  const handleTaskClick = (taskId: string) => {
     navigate(`/tasks/${taskId}`);
   };
 
-  const handleSearchChange = (event) => {
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleFilterClick = (event) => {
+  const handleFilterClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setFilterAnchorEl(event.currentTarget);
   };
 
@@ -130,7 +132,7 @@ function Tasks() {
     setFilterAnchorEl(null);
   };
 
-  const handleSortClick = (event) => {
+  const handleSortClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setSortAnchorEl(event.currentTarget);
   };
 
@@ -138,11 +140,11 @@ function Tasks() {
     setSortAnchorEl(null);
   };
 
-  const handleFilterStatusChange = (event) => {
+  const handleFilterStatusChange = (event: SelectChangeEvent<string>) => {
     setSelectedStatus(event.target.value);
   };
 
-  const handleFilterPriorityChange = (event) => {
+  const handleFilterPriorityChange = (event: SelectChangeEvent<string>) => {
     setSelectedPriority(event.target.value);
   };
 
@@ -165,7 +167,7 @@ function Tasks() {
   });
 
   // 우선순위 색상 설정
-  const getPriorityColor = (priority) => {
+  const getPriorityColor = (priority: string) => {
     switch (priority) {
       case '높음': return 'error';
       case '중간': return 'warning';
@@ -175,7 +177,7 @@ function Tasks() {
   };
 
   // 상태 색상 설정
-  const getStatusColor = (status) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
       case '진행중': return 'primary';
       case '대기중': return 'warning';
